@@ -1,0 +1,42 @@
+<mat-toolbar class="max-w-7xl mx-auto border-x justify-between">
+    <a routerLink="home">Angular Store</a>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon [matBadge]="itemsQuantity" [matBadgeHidden]="!itemsQuantity" matBadgeColor="warn">
+            shopping_cart
+        </mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+        <div class="p-3 divide-y divide-solid">
+            <div class="pb-3 flex justify-between">
+                <span class="mr-16">{{itemsQuantity}} Items</span>
+                <a routerLink="cart">View Cart</a>
+            </div>
+            <div class="pt-3" *ngIf="cart.items.length">
+                <div *ngFor="let item of cart.items" class="flex justify-between font-light mb-2">
+                    {{item.name}} x {{item.quantity}}
+                    <span class="font-bold">{{item.price | currency:'RUB':'symbol-narrow'}}</span>
+                </div>
+                <!-- <div class="flex justify-between font-light mb-2">
+                    Mouse x 1
+                    <span class="font-bold">{{699 | currency:'RUB':'symbol-narrow'}}</span>
+                </div>
+                <div class="flex justify-between font-light mb-2">
+                    Mouse Pad x 1
+                    <span class="font-bold">{{199 | currency:'RUB':'symbol-narrow'}}</span>
+                </div> -->
+            </div>
+            <div *ngIf="cart.items.length" class=" pt-3 flex justify-between">
+                Total:
+                <span>{{getTotal() | currency:'RUB':'symbol-narrow'}}</span>
+            </div>
+            <div class="pt-3 flex justify-between">
+                <button class="bg-rose-600 text-white rounded-full w-9 h-9" (click)="clearCart()">
+                    <mat-icon>remove_shopping_cart</mat-icon>
+                </button>
+                <button routerLink="cart" class="bg-green-600 text-white rounded-full w-9 h-9">
+                    <mat-icon>shopping_cart</mat-icon>
+                </button>
+            </div>
+        </div>
+    </mat-menu>
+</mat-toolbar>
